@@ -24,13 +24,9 @@ namespace AttackSurface.Models
                 {
                     if (_instance == null)
                     {
-                        lock (objLock)
-                        {
-                            _instance = new Statistics();
-                        }
+                        _instance = new Statistics();
                     }
                     return _instance;
-
                 }
             }
         }

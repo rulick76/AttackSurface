@@ -30,6 +30,7 @@ namespace AttackSurface
 
             services.AddControllers();
             services.AddSingleton<IMemoryCache,MemoryCache>();
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +47,7 @@ namespace AttackSurface
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseResponseCaching();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -56,7 +57,7 @@ namespace AttackSurface
         private void LoadCache(IMemoryCache cache)
         {
             
-            string json = System.IO.File.ReadAllText("Samples/input-3.json");
+            string json = System.IO.File.ReadAllText("Samples/input-2.json");
             var CloudEnv = Newtonsoft.Json.JsonConvert.DeserializeObject<CloudEnvironment>(json);
             Statistics.Instance.Vm_count = CloudEnv.vms.Count();
             List<string> sources = new List<string>();

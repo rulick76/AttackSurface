@@ -3,12 +3,10 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Diagnostics;
 using AttackSurface.Models;
-using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace AttackSurface.Controllers
 {
@@ -32,42 +30,44 @@ namespace AttackSurface.Controllers
             //
         }
 
+        [ResponseCache(Duration = 60)]
         [HttpGet("attack")]
-        public IActionResult Attack(string vm_id)
+        public  IActionResult Attack(string vm_id)
         {
-           Stopwatch stopWatch = new Stopwatch();
-           stopWatch.Start();
-            try
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            lock (objLock)
             {
-                
-                lock (objLock)
+                try
                 {
                     List<string> attackers;
                     _cache.TryGetValue(vm_id, out attackers);
-                    if (attackers!=null)
+                    if (attackers != null)
                     {
-                       return Ok(attackers);
+                        return Ok(Json(attackers));
                     }
                     else
                     {
                         //status code
                         return NotFound();
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Log(LogLevel.Error, ex.Message);
-                return BadRequest();
-            }
-            finally
-            {
 
-                stopWatch.Stop();
-                ++Statistics.Instance.request_count;
-                Statistics.Instance.TotalRequestsTime += stopWatch.Elapsed.TotalMilliseconds;
-                Statistics.Instance.average_request_time = (Statistics.Instance.TotalRequestsTime / Statistics.Instance.request_count);
-                stopWatch = null;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Log(LogLevel.Error, ex.Message);
+                    return BadRequest();
+                }
+                finally
+                {
+
+                    stopWatch.Stop();
+                    Statistics.Instance.TotalRequestsTime += stopWatch.Elapsed.TotalMilliseconds;
+                    ++Statistics.Instance.request_count;
+                    Statistics.Instance.average_request_time = (Statistics.Instance.TotalRequestsTime / Statistics.Instance.request_count);
+                    stopWatch = null;
+                }
             }
         }
 
@@ -76,7 +76,7 @@ namespace AttackSurface.Controllers
         {
             try
             {
-                return Ok(Statistics.Instance);
+                return Ok(Json(Statistics.Instance));
             }
             catch (Exception ex)
             {
