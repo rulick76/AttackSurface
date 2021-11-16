@@ -30,7 +30,7 @@ namespace AttackSurface.Controllers
             //
         }
 
-        [ResponseCache(Duration = 60)]
+        [ResponseCache(Duration = 0)]
         [HttpGet("attack")]
         public  IActionResult Attack(string vm_id)
         {
@@ -45,7 +45,7 @@ namespace AttackSurface.Controllers
                     _cache.TryGetValue(vm_id, out attackers);
                     if (attackers != null)
                     {
-                        return Ok(Json(attackers));
+                        return Ok(Json(attackers).Value);
                     }
                     else
                     {
@@ -76,7 +76,7 @@ namespace AttackSurface.Controllers
         {
             try
             {
-                return Ok(Json(Statistics.Instance));
+                return Ok(Json(Statistics.Instance).Value);
             }
             catch (Exception ex)
             {

@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttackSurface", "AttackSurface\AttackSurface.csproj", "{39AA80DC-7FD9-499E-A534-528DA6A09907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{A2F7FC72-7704-4EB1-954B-BF0C55090564}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{39AA80DC-7FD9-499E-A534-528DA6A09907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AA80DC-7FD9-499E-A534-528DA6A09907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AA80DC-7FD9-499E-A534-528DA6A09907}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2F7FC72-7704-4EB1-954B-BF0C55090564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2F7FC72-7704-4EB1-954B-BF0C55090564}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2F7FC72-7704-4EB1-954B-BF0C55090564}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2F7FC72-7704-4EB1-954B-BF0C55090564}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
